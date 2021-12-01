@@ -1,0 +1,28 @@
+﻿version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql-db
+    # restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: db_euro_data
+      MYSQL_ROOT_PASSWORD: root
+      TZ: Europe/Berlin
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+      - db-data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin
+    # restart: always
+    depends_on:
+      - db
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: db
+volumes:
+  db-data:
