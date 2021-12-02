@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
@@ -18,6 +12,7 @@ namespace EuroData.Forms
                                           "password=root;database=db_euro_data";
         private MySqlCommand dbCommand;
         private MySqlConnection dbCon;
+        
         public MainForm()
         {
             InitializeComponent();
@@ -28,25 +23,18 @@ namespace EuroData.Forms
             dbCon = new MySqlConnection(connectionString);
             try
             {
-                debugBox.Text = "Connecting to database...";
                 dbCon.Open();
-                debugBox.Text = "Connected to database!";
 
                 dbCommand = dbCon.CreateCommand();
                 dbCommand.CommandType = CommandType.Text;
-                dbCommand.CommandText = $"SELECT * FROM test";
+                dbCommand.CommandText = "SELECT * FROM mitarbeiter";
                 MySqlDataReader reader = dbCommand.ExecuteReader();
-                if (reader.HasRows) {
-                    int count = reader.FieldCount;
-                    debugBox.Text += $"\r\nFound {count.ToString()} row(s):";
-                    while (reader.Read())
-                    {
-                        debugBox.Text += "\r\n"+reader.GetString("test_text");
-                    }
-                    reader.Close();
+            
+                while (reader.Read())
+                {
+                    debugBox.Text += $"{reader.GetString( "Vorname")} {reader.GetString( "Name")}\r\n";
+
                 }
-                
-                dbCon.Close();
             }
             catch (MySql.Data.MySqlClient.MySqlException ex)
             {

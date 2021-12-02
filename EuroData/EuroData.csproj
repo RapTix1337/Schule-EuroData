@@ -8,10 +8,11 @@
         <OutputType>WinExe</OutputType>
         <RootNamespace>EuroData</RootNamespace>
         <AssemblyName>EuroData</AssemblyName>
-        <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+        <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
         <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
         <Deterministic>true</Deterministic>
+        <LangVersion>9</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -115,18 +116,17 @@
         <Compile Include="Classes\Entities\DepartmentManager.cs" />
         <Compile Include="Classes\Entities\Project.cs" />
         <Compile Include="Classes\Entities\Staff.cs" />
+        <Compile Include="Classes\Helper\DatabaseHelper.cs" />
         <Compile Include="Forms\MainForm.cs">
           <SubType>Form</SubType>
         </Compile>
         <Compile Include="Forms\MainForm.Designer.cs">
           <DependentUpon>MainForm.cs</DependentUpon>
         </Compile>
+        <Compile Include="Interfaces\StaffInterface.cs" />
         <Compile Include="Interfaces\UserInterface.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
-        <EmbeddedResource Include="Forms\MainForm.resx">
-          <DependentUpon>MainForm.cs</DependentUpon>
-        </EmbeddedResource>
         <EmbeddedResource Include="Properties\Resources.resx">
             <Generator>ResXFileCodeGenerator</Generator>
             <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -149,9 +149,6 @@
     </ItemGroup>
     <ItemGroup>
         <None Include="App.config" />
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Classes\Helper" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
