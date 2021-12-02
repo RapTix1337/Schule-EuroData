@@ -1,4 +1,4 @@
-﻿namespace EuroData.Classes
+﻿namespace EuroData.Classes.Entities
 {
     public class Department
     {

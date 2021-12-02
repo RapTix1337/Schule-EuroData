@@ -110,11 +110,11 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Classes\Child.cs" />
-        <Compile Include="Classes\Department.cs" />
-        <Compile Include="Classes\DepartmentManager.cs" />
-        <Compile Include="Classes\Project.cs" />
-        <Compile Include="Classes\Staff.cs" />
+        <Compile Include="Classes\Entities\Child.cs" />
+        <Compile Include="Classes\Entities\Department.cs" />
+        <Compile Include="Classes\Entities\DepartmentManager.cs" />
+        <Compile Include="Classes\Entities\Project.cs" />
+        <Compile Include="Classes\Entities\Staff.cs" />
         <Compile Include="Forms\MainForm.cs">
           <SubType>Form</SubType>
         </Compile>
@@ -149,6 +149,9 @@
     </ItemGroup>
     <ItemGroup>
         <None Include="App.config" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Classes\Helper" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
