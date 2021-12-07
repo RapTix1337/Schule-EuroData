@@ -4,14 +4,14 @@ namespace EuroData.Classes.Entities
 {
     public class Project
     {
-        public int projektnummer;
-        public string bezeichnung;
-        public decimal auftragswert;
-        public decimal bezahlt;
+        public int projectNumber;
+        public string title;
+        public double contractValue;
+        public double paidAmount;
         public DateTime start;
         public DateTime end;
-        public int storno;
-        public int leiter;
+        public bool canceled;
+        public int responsible;
         
     }
 }
