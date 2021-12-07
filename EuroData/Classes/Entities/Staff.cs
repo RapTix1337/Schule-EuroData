@@ -13,14 +13,15 @@ namespace EuroData.Classes.Entities
         public string city { get; set; }
         public string phone { get; set; }
         public string gender { get; set; }
-        public string hiringDate { get; set; }
+        public DateTime hiringDate { get; set; }
         public int department { get; set; }
         public string car1 { get; set; }
         public string car2 { get; set; }
 
-        public Staff(string lastName, string firstName, string street, string zipCode, string city, string phone,
-            string gender, string hiringDate, int department, string car1, string car2)
+        public Staff(int id,string lastName, string firstName, string street, string zipCode, string city, string phone,
+            string gender, DateTime hiringDate, int department, string car1, string car2)
         {
+            this.id = id;
             this.lastName = lastName;
             this.firstName = firstName;
             this.street = street;

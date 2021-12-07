@@ -12,7 +12,7 @@ namespace EuroData.Interfaces
         string city { get; set; }
         string phone { get; set; }
         string gender { get; set; }
-        string hiringDate { get; set; }
+        DateTime hiringDate { get; set; }
         int department { get; set; }
         string car1 { get; set; }
         string car2 { get; set; }
