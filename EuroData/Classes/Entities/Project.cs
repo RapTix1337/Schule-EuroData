@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using EuroData.Interfaces;
 
 namespace EuroData.Classes.Entities
 {
@@ -11,7 +13,8 @@ namespace EuroData.Classes.Entities
         public DateTime start;
         public DateTime end;
         public bool canceled;
-        public int responsible;
+        public List<IStaffInterface> staff;
+        public IStaffInterface responsible;
         
     }
 }
