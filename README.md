@@ -7,8 +7,9 @@
 ## MySQL-Server
 Über ein Docker-Compose Script kann man ganz einfach einen MySQL Server starten und eine phpmyadmin Applikation dazu um die Datenbank zu bearbeiten.
 Auf Windows braucht man nur [Docker Desktop](https://hub.docker.com/editions/community/docker-ce-desktop-windows).
-Für Linux siehe [hier](https://docs.docker.com/compose/install/)
-Wenn alles installiert und startbereit ist kann man mit einem Terminal im Projekt mit folgendem Command die Datenbank starten.
+Für Linux siehe [hier](https://docs.docker.com/compose/install/).
+
+Wenn alles installiert und startbereit ist kann man über ein Terminal im Projekt mit folgendem Command die Datenbank starten.
 
 `docker-compose up -d`
 
