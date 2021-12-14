@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using EuroData.Classes.Entities;
 using MySql.Data.MySqlClient;
 
 namespace EuroData.Classes.Helper
@@ -9,7 +12,6 @@ namespace EuroData.Classes.Helper
                                           "password=root;database=db_euro_data";
 
         private MySqlConnection dbCon;
-        private MySqlCommand dbCommand;
         
         public DatabaseHelper(string connectionString = null)
         {
@@ -18,7 +20,34 @@ namespace EuroData.Classes.Helper
                 this.connectionString = connectionString;
             }
             dbCon = new MySqlConnection(connectionString);
-            dbCommand = dbCon.CreateCommand();
+        }
+
+        public List<Project> genericGetAllProjects(string[] columns, string table)
+        {
+            MySqlCommand selectProjects = dbCon.CreateCommand();
+            selectProjects.CommandType = CommandType.Text;
+            selectProjects.CommandText = "SELECT * FROM mitarbeiter";
+            MySqlDataReader reader = selectProjects.ExecuteReader();
+            List<Project> result = new List<Project>();
+            if(reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    result.Add(new Project(
+                            reader.GetInt16("ProjNr"),
+                            reader.GetString("Bezeichnung"),
+                            reader.GetDouble("Auftragswert"),
+                            reader.GetDouble("bezahlt"),
+                            0,
+                            reader.GetDateTime("Beginn"),
+                            reader.GetDateTime("Ende"),
+                            reader.GetBoolean("Storno")
+                        ));
+
+                }
+            }
+            // ToDo add total hours worked
+            return result;
         }
     }
 }
