@@ -26,7 +26,7 @@ namespace EuroData.Classes.Helper
         {
             MySqlCommand selectProjects = dbCon.CreateCommand();
             selectProjects.CommandType = CommandType.Text;
-            selectProjects.CommandText = "SELECT * FROM mitarbeiter";
+            selectProjects.CommandText = "SELECT * FROM projekt";
             MySqlDataReader reader = selectProjects.ExecuteReader();
             List<Project> result = new List<Project>();
             if(reader.HasRows)
