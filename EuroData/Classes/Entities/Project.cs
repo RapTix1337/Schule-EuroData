@@ -31,5 +31,10 @@ namespace EuroData.Classes.Entities
             this.staff = staff;
             this.responsible = responsible;
         }
+
+        public void addHoursWorked(int hours)
+        {
+            this.totalHoursWorked += hours;
+        }
     }
 }

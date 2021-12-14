@@ -27,26 +27,38 @@ namespace EuroData.Classes.Helper
             MySqlCommand selectProjects = dbCon.CreateCommand();
             selectProjects.CommandType = CommandType.Text;
             selectProjects.CommandText = "SELECT * FROM projekt";
-            MySqlDataReader reader = selectProjects.ExecuteReader();
+            MySqlDataReader projectReader = selectProjects.ExecuteReader();
             List<Project> result = new List<Project>();
-            if(reader.HasRows)
+            if(projectReader.HasRows)
             {
-                while (reader.Read())
+                while (projectReader.Read())
                 {
                     result.Add(new Project(
-                            reader.GetInt16("ProjNr"),
-                            reader.GetString("Bezeichnung"),
-                            reader.GetDouble("Auftragswert"),
-                            reader.GetDouble("bezahlt"),
+                            projectReader.GetInt16("ProjNr"),
+                            projectReader.GetString("Bezeichnung"),
+                            projectReader.GetDouble("Auftragswert"),
+                            projectReader.GetDouble("bezahlt"),
                             0,
-                            reader.GetDateTime("Beginn"),
-                            reader.GetDateTime("Ende"),
-                            reader.GetBoolean("Storno")
+                            projectReader.GetDateTime("Beginn"),
+                            projectReader.GetDateTime("Ende"),
+                            projectReader.GetBoolean("Storno")
                         ));
 
                 }
             }
-            // ToDo add total hours worked
+            MySqlCommand selectProjectWorkedTime = dbCon.CreateCommand();
+            selectProjectWorkedTime.CommandType = CommandType.Text;
+            selectProjectWorkedTime.CommandText = "SELECT * FROM projektmitarbeiter";
+            MySqlDataReader workedTimeReader = selectProjectWorkedTime.ExecuteReader();
+            if(workedTimeReader.HasRows)
+            {
+                while (workedTimeReader.Read())
+                {
+                    var index = result.FindIndex(p => p.projectNumber == workedTimeReader.GetInt16("ProjNr"));
+                    result[index].addHoursWorked(workedTimeReader.GetInt16("Zeitanteil"));
+                }
+            }
+            
             return result;
         }
     }
