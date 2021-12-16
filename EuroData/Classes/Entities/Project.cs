@@ -12,13 +12,13 @@ namespace EuroData.Classes.Entities
         public double paidAmount;
         public int totalHoursWorked;
         public DateTime start;
-        public DateTime end;
         public bool canceled;
 #nullable enable
+        public DateTime? end;
         public List<IStaffInterface>? staff;
         public IStaffInterface? responsible;
 
-        public Project(int projectNumber, string title, double contractValue, double paidAmount, int totalHoursWorked, DateTime start, DateTime end, bool canceled, List<IStaffInterface>? staff = null, IStaffInterface? responsible = null)
+        public Project(int projectNumber, string title, double contractValue, double paidAmount, int totalHoursWorked, DateTime start, DateTime? end, bool canceled, List<IStaffInterface>? staff = null, IStaffInterface? responsible = null)
         {
             this.projectNumber = projectNumber;
             this.title = title;
@@ -35,6 +35,22 @@ namespace EuroData.Classes.Entities
         public void addHoursWorked(int hours)
         {
             this.totalHoursWorked += hours;
+        }
+
+        public double getProjectValue()
+        {
+            if (canceled)
+            {
+                // return less than 0 because money was given back
+                return -1;
+            }
+
+            if (totalHoursWorked == 0)
+            {
+                // only give value if some work is already done
+                return 0;
+            }
+            return paidAmount / totalHoursWorked;
         }
     }
 }
