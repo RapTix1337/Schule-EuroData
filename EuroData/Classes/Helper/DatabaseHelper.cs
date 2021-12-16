@@ -19,11 +19,12 @@ namespace EuroData.Classes.Helper
             {
                 this.connectionString = connectionString;
             }
-            dbCon = new MySqlConnection(connectionString);
+            dbCon = new MySqlConnection(this.connectionString);
         }
 
-        public List<Project> genericGetAllProjects(string[] columns, string table)
+        public List<Project> getAllProjects()
         {
+            dbCon.Open();
             MySqlCommand selectProjects = dbCon.CreateCommand();
             selectProjects.CommandType = CommandType.Text;
             selectProjects.CommandText = "SELECT * FROM projekt";
@@ -33,19 +34,30 @@ namespace EuroData.Classes.Helper
             {
                 while (projectReader.Read())
                 {
+                    double paidAmount = 0;
+                    DateTime? end = null;
+                    if (!projectReader.IsDBNull(projectReader.GetOrdinal("bezahlt")))
+                    {
+                        paidAmount = projectReader.GetDouble("bezahlt");
+                    }
+                    if (!projectReader.IsDBNull(projectReader.GetOrdinal("Ende")))
+                    {
+                        end = projectReader.GetDateTime("Ende");
+                    }
                     result.Add(new Project(
                             projectReader.GetInt16("ProjNr"),
                             projectReader.GetString("Bezeichnung"),
                             projectReader.GetDouble("Auftragswert"),
-                            projectReader.GetDouble("bezahlt"),
+                            paidAmount,
                             0,
                             projectReader.GetDateTime("Beginn"),
-                            projectReader.GetDateTime("Ende"),
+                            end,
                             projectReader.GetBoolean("Storno")
                         ));
-
                 }
             }
+            dbCon.Close();
+            dbCon.Open();
             MySqlCommand selectProjectWorkedTime = dbCon.CreateCommand();
             selectProjectWorkedTime.CommandType = CommandType.Text;
             selectProjectWorkedTime.CommandText = "SELECT * FROM projektmitarbeiter";
@@ -58,6 +70,7 @@ namespace EuroData.Classes.Helper
                     result[index].addHoursWorked(workedTimeReader.GetInt16("Zeitanteil"));
                 }
             }
+            dbCon.Close();
             
             return result;
         }
