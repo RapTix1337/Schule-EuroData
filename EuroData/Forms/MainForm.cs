@@ -1,18 +1,17 @@
 ﻿using System;
-using System.Data;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
+using EuroData.Classes.Entities;
+using EuroData.Classes.Helper;
 
 namespace EuroData.Forms
 {
     public partial class MainForm : Form
     {
-        // ToDo: make it configurable in a separate file (.env?)
-        private string connectionString = "server=localhost;uid=root;" +
-                                          "password=root;database=db_euro_data";
-        private MySqlCommand dbCommand;
-        private MySqlConnection dbCon;
-        
+        private List<Project> projects;
+        private DatabaseHelper dbHelper = new DatabaseHelper();
+
         public MainForm()
         {
             InitializeComponent();
@@ -20,21 +19,18 @@ namespace EuroData.Forms
 
         private void debugButton_Click(object sender, EventArgs e)
         {
-            dbCon = new MySqlConnection(connectionString);
             try
             {
-                dbCon.Open();
-
-                dbCommand = dbCon.CreateCommand();
-                dbCommand.CommandType = CommandType.Text;
-                dbCommand.CommandText = "SELECT * FROM mitarbeiter";
-                MySqlDataReader reader = dbCommand.ExecuteReader();
-            
-                while (reader.Read())
+                projects = dbHelper.getAllProjects();
+                debugBox.Text = "Project: paid amount / total hours worked";
+                foreach (var project in projects)
                 {
-                    debugBox.Text += $"{reader.GetString( "Vorname")} {reader.GetString( "Name")}\r\n";
-
+                    debugBox.Text += "\r\n "+project.title+": "+project.paidAmount + "/" + project.totalHoursWorked;
                 }
+
+                var sortedProjects = projects.OrderByDescending(p => p.getProjectValue());
+                Project mostValuebleProject = sortedProjects.First();
+                MessageBox.Show("Most valueble project: "+mostValuebleProject.title);
             }
             catch (MySql.Data.MySqlClient.MySqlException ex)
             {
@@ -42,7 +38,7 @@ namespace EuroData.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Unknown Error"+ex.Message);
+                MessageBox.Show("Unknown Error "+ex.Message);
             }
         }
     }

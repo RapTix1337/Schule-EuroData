@@ -36,26 +36,28 @@
             // 
             // debugBox
             // 
-            this.debugBox.Location = new System.Drawing.Point(267, 43);
+            this.debugBox.Location = new System.Drawing.Point(300, 54);
+            this.debugBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.debugBox.Multiline = true;
             this.debugBox.Name = "debugBox";
             this.debugBox.ReadOnly = true;
-            this.debugBox.Size = new System.Drawing.Size(232, 115);
+            this.debugBox.Size = new System.Drawing.Size(565, 425);
             this.debugBox.TabIndex = 0;
             // 
             // debugOutputLabel
             // 
-            this.debugOutputLabel.Location = new System.Drawing.Point(154, 50);
+            this.debugOutputLabel.Location = new System.Drawing.Point(173, 62);
             this.debugOutputLabel.Name = "debugOutputLabel";
-            this.debugOutputLabel.Size = new System.Drawing.Size(107, 23);
+            this.debugOutputLabel.Size = new System.Drawing.Size(120, 29);
             this.debugOutputLabel.TabIndex = 1;
             this.debugOutputLabel.Text = "Debug Output:";
             // 
             // debugButton
             // 
-            this.debugButton.Location = new System.Drawing.Point(45, 43);
+            this.debugButton.Location = new System.Drawing.Point(51, 54);
+            this.debugButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.debugButton.Name = "debugButton";
-            this.debugButton.Size = new System.Drawing.Size(83, 30);
+            this.debugButton.Size = new System.Drawing.Size(93, 38);
             this.debugButton.TabIndex = 2;
             this.debugButton.Text = "Debug";
             this.debugButton.UseVisualStyleBackColor = true;
@@ -63,12 +65,13 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(900, 562);
             this.Controls.Add(this.debugButton);
             this.Controls.Add(this.debugOutputLabel);
             this.Controls.Add(this.debugBox);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "MainForm";
             this.Text = "Main";
             this.ResumeLayout(false);
