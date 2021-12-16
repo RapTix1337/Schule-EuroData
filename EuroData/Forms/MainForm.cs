@@ -23,12 +23,14 @@ namespace EuroData.Forms
             {
                 projects = dbHelper.getAllProjects();
                 debugBox.Text = "Project: paid amount / total hours worked";
-                foreach (var project in projects)
+
+                var sortedProjects = projects.OrderByDescending(p => p.getProjectValue());
+                
+                foreach (var project in sortedProjects)
                 {
                     debugBox.Text += "\r\n "+project.title+": "+project.paidAmount + "/" + project.totalHoursWorked;
                 }
-
-                var sortedProjects = projects.OrderByDescending(p => p.getProjectValue());
+                
                 Project mostValuebleProject = sortedProjects.First();
                 MessageBox.Show("Most valueble project: "+mostValuebleProject.title);
             }
